@@ -1,5 +1,3 @@
-//STRIVER_SDE_SHEET
-
 /**
  * Definition for a binary tree node.
  * struct TreeNode {
@@ -14,28 +12,17 @@
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        while(root!=NULL){
-            if(root->right==NULL){
-                ans.push_back(root->val);
-                root=root->left;
-            }
-            else{
-                TreeNode* pred=root->right;
-                while(pred->left!=NULL && pred->left!=root){
-                    pred=pred->left;
-                }
-                if(pred->left==NULL){
-                    ans.push_back(root->val);
-                    pred->left=root;
-                    root=root->right;
-                }else{
-                    pred->left=NULL;
-                    root=root->left;
-                }
-            }
-        }
-        reverse(ans.begin(),ans.end());
+        vector<int>ans;
+        if(!root)
+            return ans;
+        Treehelper(root,ans);
         return ans;
+    }
+    void Treehelper(TreeNode *root, vector<int>&ans){
+        if(!root)
+            return;
+        Treehelper(root->left,ans);
+        Treehelper(root->right,ans);
+        ans.push_back(root->val);
     }
 };
