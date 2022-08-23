@@ -11,24 +11,18 @@
  */
 class Solution {
 public:
-    vector<int>temp;
-    void recurr(TreeNode* root){
-        if(root==NULL)
-            return;
-        else{
-            recurr(root->left);
-            temp.push_back(root->val);
-            recurr(root->right);
-        }
-    }
     bool isValidBST(TreeNode* root) {
-        recurr(root);
-        for(int i=1;i<temp.size();i++){
-            if(temp[i-1]>=temp[i]){
-                return false;
-            }
-            cout<<temp[i];
+        vector<int>ans;
+        helper(root,ans);
+        for(int i=0;i<ans.size()-1;i++){
+            if(ans[i]>=ans[i+1]) return false;
         }
         return true;
+    }
+    void helper(TreeNode *root,vector<int>&ans){
+        if(!root)return;
+        helper(root->left,ans);
+        ans.push_back(root->val);
+        helper(root->right,ans);
     }
 };
