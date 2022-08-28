@@ -1,33 +1,19 @@
-//STRIVER_SDE_SHEET
-
 class Solution {
 public:
-    vector<int> topKFrequent(vector<int>& nums, int k) {
-        
-        //get a count of frequencies
-        unordered_map<int, int> freqMap;
-        for(int x : nums) {
-            freqMap[x]++;
-        }
-        
-        auto comp = [&freqMap](auto& lhs, auto&rhs) {
-              return freqMap[lhs] > freqMap[rhs];
-        };
-        priority_queue<int, vector<int>, decltype(comp)> pq(comp);
-        
-        for(auto& thing : freqMap) {
-            pq.push(thing.first);
-            if(pq.size() > k) {
-                pq.pop();
-            }
-        }
-
-        vector<int> ans;
-        while(!pq.empty()) {
-            ans.push_back(pq.top());
-            pq.pop();
-        }
-     
-        return ans;
-    }
+	vector<int> topKFrequent(vector<int>& nums, int k) {
+		unordered_map<int,int>m;
+		vector<pair<int,int>> a;
+		for(int i=0;i<nums.size();++i){
+			m[nums[i]]+=1;
+		}
+		for(auto x:m){
+			a.push_back({x.second,x.first});
+		}
+		sort(a.rbegin(),a.rend());
+		vector<int>ans(k);
+		for(int i=0;i<k;++i){
+			ans[i] = a[i].second;
+		}
+		return ans;
+	}
 };
