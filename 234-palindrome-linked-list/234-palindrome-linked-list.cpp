@@ -8,30 +8,23 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-//STRIVER_SDE_SHEET
 class Solution {
 public:
-    bool isPalindrome(ListNode* head) 
-    {
+    bool isPalindrome(ListNode* head) {
         stack<int>s;
-        ListNode*temp=head;
-        while(temp!=NULL)
-        {
+        ListNode *temp=head;
+        while(temp!=NULL){
             s.push(temp->val);
             temp=temp->next;
         }
-        while(head!=NULL)
-        {
-            if(head->val==s.top())
-            {
+        while(head!=NULL){
+            if(head->val==s.top()){
                 s.pop();
             }
             head=head->next;
         }
-        if(!s.empty())
-        {
-            return false;
-        }
+        if(!s.empty()) return false;
         return true;
     }
 };
+
