@@ -11,25 +11,9 @@
  */
 class Solution {
 public:
-    void solver(TreeNode* root,int val, TreeNode* &ans){
-        if(root == NULL)
-            return;
-        
-        if(root->val == val){
-            ans = root;
-            return;
-        }
-        
-        if(val > root->val)
-            solver(root->right,val,ans);
-        
-        else
-            solver(root->left,val,ans); 
-    }
-    
     TreeNode* searchBST(TreeNode* root, int val) {
-        TreeNode* ans = NULL;
-        solver(root,val,ans);
-        return ans;
+        while(root!=NULL && root->val!=val){
+            root=val<root->val?root->left:root->right;
+        }return root;
     }
 };
