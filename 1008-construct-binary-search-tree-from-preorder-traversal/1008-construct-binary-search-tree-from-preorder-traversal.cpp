@@ -11,23 +11,15 @@
  */
 class Solution {
 public:
-    TreeNode* construct(vector<int> &preorder, int &idx, int mn, int mx, int size)
-    {
-        if (idx >= size) // All the nodes have been created.
-            return NULL;
-        TreeNode* n = NULL;
-        if (preorder[idx] > mn && preorder[idx] < mx) 
-        {
-            int key = preorder[idx++];
-            n = new TreeNode(key);
-            n->left = construct(preorder, idx, mn, key, size);
-            n->right = construct(preorder, idx, key, mx, size);
-        }
-        return n;
-    }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        int idx = 0;
-        int size = preorder.size();
-        return construct(preorder, idx, INT_MIN, INT_MAX, size);
+        int i=0;
+        return build(preorder,i,INT_MAX);
+    }
+    TreeNode* build(vector<int>&preorder,int &i,int bound){
+        if(i==preorder.size() || preorder[i]>bound)return NULL;
+        TreeNode* root=new TreeNode(preorder[i++]);
+        root->left=build(preorder,i,root->val);
+        root->right=build(preorder,i,bound);
+        return root;
     }
 };
